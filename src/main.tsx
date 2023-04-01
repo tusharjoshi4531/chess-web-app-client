@@ -6,15 +6,18 @@ import App from "./App";
 import "./index.css";
 import GameProvider from "./store/game/GameProvider";
 import UserProvider from "./store/user/UserProvider";
+import WindowProvider from "./store/window/WindowProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     // <React.StrictMode>
     <BrowserRouter>
-        <UserProvider>
-            <GameProvider>
-                <App />
-            </GameProvider>
-        </UserProvider>
+        <WindowProvider>
+            <UserProvider>
+                <GameProvider>
+                    <App />
+                </GameProvider>
+            </UserProvider>
+        </WindowProvider>
     </BrowserRouter>
     // </React.StrictMode>
 );

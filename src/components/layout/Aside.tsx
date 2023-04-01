@@ -3,22 +3,25 @@ import { useNavigate } from "react-router";
 import GameContext from "../../store/game/game-context";
 import styles from "./Aside.module.css";
 
-const Aside = () => {
-    const { gameData } = useContext(GameContext);
-    const navigate = useNavigate();
+interface IAsideProps {
+    isGameShown: boolean;
+    onHomeClick: () => void;
+    onGameClick: () => void;
+}
 
-    const homeClickHandler = () => {
-        navigate("");
-    };
-    const gameClickHandler = () => {
-        navigate("/game");
-    };
+const Aside: React.FC<IAsideProps> = ({
+    isGameShown,
+    onGameClick,
+    onHomeClick,
+}) => {
+    
+
 
     return (
         <div className={styles.Aside}>
-            <button onClick={homeClickHandler}>home</button>
-            {gameData.roomId !== "" && (
-                <button onClick={gameClickHandler}>game</button>
+            <button onClick={onGameClick}>home</button>
+            {isGameShown&& (
+                <button onClick={onHomeClick}>game</button>
             )}
         </div>
     );

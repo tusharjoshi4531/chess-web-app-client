@@ -5,6 +5,21 @@
     justify-content: right;
     background-color: rgb(36, 36, 36);
 }
+.navbar .menuButton {
+    justify-self: left;
+    margin-right: auto;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    background-image: radial-gradient(circle, white 5px, transparent 5px);
+    background-size: 33.33% 100%;
+}
+
+.navbar .menuButton:hover {
+    background-color: transparent;
+    background-image: radial-gradient(circle, gray 5px, transparent 5px);
+    background-size: 33.33% 100%;
+}
 
 .navbar button {
     height: 30px;

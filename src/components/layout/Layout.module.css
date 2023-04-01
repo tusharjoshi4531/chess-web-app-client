@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
-
 .body {
-    flex-grow: 1;
+    overflow: hidden;
     display: flex;
 }
 
@@ -15,7 +14,28 @@
     background-color: blue;
 }
 
-.body main{
+.body main {
+    overflow: scroll;
     flex-grow: 1;
+    height: 100%;
     background-color: rgb(54, 54, 54);
 }
+
+.body .fixed {
+    position: fixed;
+    height: 100vh;
+}
+
+.body .hidden {
+    position: fixed;
+    height: 100vh;
+    left: -100vw;
+}
+
+/* @media (max-width: 750px) {
+    .body aside {
+        position: fixed;
+        height: 100vh;
+        left: -100vw;
+    }
+} */

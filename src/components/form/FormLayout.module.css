@@ -4,7 +4,7 @@ form {
     padding: 32px;
 }
 
-button {
+form button {
     height: 30px;
     margin: 0px 8px;
     padding: 4px 16px;
@@ -36,7 +36,7 @@ button {
     font-size: 16px;
 }
 
-.control input {
+.control input, .control select {
     padding: 8px 8px;
     margin: 4px 0px;
     border-radius: 8px;

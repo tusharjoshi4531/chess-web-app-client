@@ -1,9 +1,11 @@
 import { useContext, useRef, useState } from "react";
-import { IChallengeData } from "../../store/game/types";
-import UserContext from "../../store/user/user-context";
-import FormLayout from "./FormLayout";
+import { IChallengeData } from "../../../store/game/types";
+import UserContext from "../../../store/user/user-context";
+import FormLayout from "../FormLayout";
 
 import styles from "./MainPageForm.module.css";
+
+type IChallengeType = "Challenge User" | "Open Challenge";
 
 const MainPageForm = () => {
     // Refs
@@ -14,6 +16,8 @@ const MainPageForm = () => {
     const { username, email, socket } = useContext(UserContext);
 
     const [chosenWhite, setChosenWhite] = useState<boolean>(true);
+    const [challengeType, setChallengeType] =
+        useState<IChallengeType>("Challenge User");
 
     const usernameInputBlurHandler = () =>
         (emailInputRef.current.disabled = !!usernameInputRef.current.value);
@@ -29,7 +33,7 @@ const MainPageForm = () => {
         !chosenWhite && styles.selectdColorSelectorButton
     }`;
 
-    const submitFormHandler = () => {
+    const challengeUserSubmitHandler = () => {
         const to = emailInputRef.current.value + usernameInputRef.current.value;
         if (to == username || to == email) return;
 
@@ -43,26 +47,64 @@ const MainPageForm = () => {
         socket.sendChallenge(data, (status: boolean) => console.log(status));
     };
 
+    const openChallengeSubmitHandler = () => {};
+
+    const submitFormHandler = () => {
+        switch (challengeType) {
+            case "Challenge User":
+                challengeUserSubmitHandler();
+            case "Open Challenge":
+                openChallengeSubmitHandler();
+        }
+    };
+
+    const challengeUserInputComponents = (
+        <>
+            <label>Username</label>
+            <input
+                type="text"
+                placeholder="Username"
+                ref={usernameInputRef}
+                onBlur={usernameInputBlurHandler}
+            />
+            <label>Email</label>
+            <input
+                type="text"
+                placeholder="Email"
+                ref={emailInputRef}
+                onBlur={emailInputBlurHandler}
+            />
+        </>
+    );
+
+    const openChallengeInputComponents = (
+        <>
+            <label>Description</label>
+            <input type="text" placeholder="description" />
+        </>
+    );
+
     return (
         <FormLayout
             onSubmit={submitFormHandler}
-            title="Challenge"
+            title={challengeType}
             control={
                 <>
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        ref={usernameInputRef}
-                        onBlur={usernameInputBlurHandler}
-                    />
-                    <label>Email</label>
-                    <input
-                        type="text"
-                        placeholder="UserEmail"
-                        ref={emailInputRef}
-                        onBlur={emailInputBlurHandler}
-                    />
+                    <label>Challenge Type</label>
+                    <select
+                        name="challenge type"
+                        id="challenge type"
+                        onChange={(e) =>
+                            setChallengeType(e.target.value as IChallengeType)
+                        }
+                    >
+                        <option value="Challenge User">Challenge User</option>
+                        <option value="Open Challenge">Open Challenge</option>
+                    </select>
+                    {challengeType === "Challenge User" &&
+                        challengeUserInputComponents}
+                    {challengeType === "Open Challenge" &&
+                        openChallengeInputComponents}
                     <label>Color</label>
                     <div className={styles.colorSelectorContainer}>
                         <button
