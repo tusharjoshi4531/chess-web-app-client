@@ -4,29 +4,33 @@ interface IOpenChallengeProps {
     creator: string;
     creatorColor: 0 | 1;
     description: string;
+    onAccept: () => void;
 }
 
 const OpenChallenge: React.FC<IOpenChallengeProps> = ({
     creator,
     creatorColor,
     description,
+    onAccept,
 }) => {
     const backgroundColor = creatorColor === 0 ? "black" : "white";
     const textColor = creatorColor === 1 ? "black" : "white";
 
     return (
         <FormLayout
+            onSubmit={onAccept}
             title={creator}
             control={
                 <>
+                    <h3>{description}</h3>
                     <div>
-                        Creator color: {creatorColor === 0 ? "White" : "Black"}
+                        <b>Creator color:</b>{" "}
+                        {creatorColor === 0 ? "White" : "Black"}
                     </div>
                     <div>
-                        Challenger color:{" "}
+                        <b>Challenger color:</b>{" "}
                         {creatorColor === 1 ? "White" : "Black"}
                     </div>
-                    <div>{description}</div>
                 </>
             }
             actions={<button type="submit">accept</button>}

@@ -96,9 +96,6 @@ const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     };
 
     const gameFinishHandler = (data: IGameResult) => {
-        console.log(data);
-        console.log(gameData);
-
         let title: string;
 
         if (data.winner === 2) title = "Its a Draw!!!";
@@ -130,7 +127,6 @@ const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     useEffect(() => {
         if (!socket.obj) return;
         if (userId != "") {
-            console.log("t");
             socket.subscribeChallengeReceive(challengeReceiveHandler);
             socket.subscribeChallengeCreated((data) => setChallenge(data));
 

@@ -1,3 +1,17 @@
+export interface ICreateChallengeRequestBody {
+    creatorColor: 0 | 1,
+    description: string,
+    validityTime: number,
+}
+
+export interface IOpenChallenge {
+    id: string,
+    creator: string,
+    creatorColor: 0 | 1,
+    description: string,
+    validityTime: number,
+}
+
 export interface IChallengeData {
     white: string;
     black: string;

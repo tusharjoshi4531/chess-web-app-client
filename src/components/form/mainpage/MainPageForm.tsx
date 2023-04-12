@@ -1,4 +1,5 @@
 import { useContext, useRef, useState } from "react";
+import { createOpenChallenge } from "../../../api/challenge/createChallenge";
 import { IChallengeData } from "../../../store/game/types";
 import UserContext from "../../../store/user/user-context";
 import FormLayout from "../FormLayout";
@@ -11,9 +12,12 @@ const MainPageForm = () => {
     // Refs
     const usernameInputRef = useRef<HTMLInputElement>(null!);
     const emailInputRef = useRef<HTMLInputElement>(null!);
+    const descriptionInputRef = useRef<HTMLInputElement>(null!);
+    const validityDurationMinutesInputRef = useRef<HTMLInputElement>(null!);
+    const validityDurationSecondsInputRef = useRef<HTMLInputElement>(null!);
 
     // hooks
-    const { username, email, socket } = useContext(UserContext);
+    const { username, email, socket, token } = useContext(UserContext);
 
     const [chosenWhite, setChosenWhite] = useState<boolean>(true);
     const [challengeType, setChallengeType] =
@@ -47,7 +51,27 @@ const MainPageForm = () => {
         socket.sendChallenge(data, (status: boolean) => console.log(status));
     };
 
-    const openChallengeSubmitHandler = () => {};
+    const getTimeInMs = (minutes: number, seconds: number): number => {
+        if (minutes < 0 || seconds < 0 || (minutes === 0 && seconds === 0))
+            return NaN;
+        else return Date.now() + 1000 * (60 * minutes + seconds);
+    };
+
+    const openChallengeSubmitHandler = () => {
+        const description = descriptionInputRef.current.value;
+
+        const validityTime = getTimeInMs(
+            Number(validityDurationMinutesInputRef.current.value),
+            Number(validityDurationMinutesInputRef.current.value)
+        );
+
+        const color = chosenWhite ? 0 : 1;
+
+        if (isNaN(validityTime)) return;
+
+        console.log({ description, validityTime, color });
+        createOpenChallenge(color, description, validityTime, token);
+    };
 
     const submitFormHandler = () => {
         switch (challengeType) {
@@ -80,7 +104,24 @@ const MainPageForm = () => {
     const openChallengeInputComponents = (
         <>
             <label>Description</label>
-            <input type="text" placeholder="description" />
+            <input
+                type="text"
+                placeholder="description"
+                ref={descriptionInputRef}
+            />
+            <label>Validity Duration</label>
+            <div className={styles.inputGroup}>
+                <input
+                    type="number"
+                    placeholder="Minutes"
+                    ref={validityDurationMinutesInputRef}
+                />
+                <input
+                    type="number"
+                    placeholder="Seconds"
+                    ref={validityDurationSecondsInputRef}
+                />
+            </div>
         </>
     );
 

@@ -8,11 +8,13 @@
 .body {
     overflow: hidden;
     display: flex;
+    height: 100%;
 }
 
 .body aside {
     background-color: blue;
 }
+
 
 .body main {
     overflow: scroll;
@@ -24,12 +26,21 @@
 .body .fixed {
     position: fixed;
     height: 100vh;
+    z-index: 2;
 }
 
 .body .hidden {
     position: fixed;
     height: 100vh;
     left: -100vw;
+}
+
+.body .asideFilter {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 /* @media (max-width: 750px) {

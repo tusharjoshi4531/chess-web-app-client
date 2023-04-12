@@ -21,3 +21,8 @@
 .selectdColorSelectorButton {
     background-color: rgb(36, 36, 36);
 }
+
+.inputGroup {
+    display: flex;
+    gap: 20px;
+}

@@ -72,6 +72,9 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
                         isGameShown={gameData.roomId !== ""}
                     />
                 </aside>
+                {innerWidth <= 750 && !isAsideHidden && (
+                    <div className={styles.asideFilter} />
+                )}
                 <main>{children}</main>
             </div>
         </div>

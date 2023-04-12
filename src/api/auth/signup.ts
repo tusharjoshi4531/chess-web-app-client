@@ -1,7 +1,5 @@
 import axios from "axios";
 import { IUserData } from "../../store/user/types";
-
-
 import { SERVER_URL } from "../Util";
 
 const signup = async (
@@ -10,6 +8,7 @@ const signup = async (
     password: string
 ): Promise<IUserData | undefined> => {
     try {
+        console.log("test");
         // Get login data
         const response = await axios.post<IUserData>(
             `${SERVER_URL}/auth/signup`,
