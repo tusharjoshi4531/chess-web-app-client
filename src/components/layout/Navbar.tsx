@@ -13,6 +13,7 @@ interface INavbarProps {
     onExpandClick: () => void;
     isAsideHidden: boolean;
     isLogin: boolean;
+    name?: string;
 }
 
 const Navbar: React.FC<INavbarProps> = ({
@@ -22,15 +23,15 @@ const Navbar: React.FC<INavbarProps> = ({
     onExpandClick,
     isAsideHidden,
     isLogin,
+    name = "",
 }) => {
-    //hooks
-    const navigate = useNavigate();
 
     return (
         <div className={styles.navbar}>
             {isAsideHidden && (
                 <button className={styles.menuButton} onClick={onExpandClick} />
             )}
+            <div className={styles.userName}>{name}</div>
             {!isLogin && (
                 <>
                     <button onClick={onLoginClick}>login</button>

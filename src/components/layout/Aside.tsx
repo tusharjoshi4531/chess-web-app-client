@@ -14,15 +14,10 @@ const Aside: React.FC<IAsideProps> = ({
     onGameClick,
     onHomeClick,
 }) => {
-    
-
-
     return (
         <div className={styles.Aside}>
-            <button onClick={onGameClick}>home</button>
-            {isGameShown&& (
-                <button onClick={onHomeClick}>game</button>
-            )}
+            <button onClick={onHomeClick}>home</button>
+            {isGameShown && <button onClick={onGameClick}>game</button>}
         </div>
     );
 };

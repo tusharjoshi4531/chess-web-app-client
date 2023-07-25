@@ -15,7 +15,7 @@ interface ILayoutProps {
 
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
     const { innerWidth } = useContext(WindowContext);
-    const { userId, dispatch, socket } = useContext(UserContext);
+    const { userId, dispatch, socket, username } = useContext(UserContext);
     const { gameData } = useContext(GameContext);
 
     const [isAsideHidden, setIsAsideHidden] = useState(true);
@@ -62,6 +62,7 @@ const Layout: React.FC<ILayoutProps> = ({ children }) => {
                     onExpandClick={asideExpandClickHandler}
                     isAsideHidden={innerWidth <= 750}
                     isLogin={userId !== ""}
+                    name={username}
                 />
             </nav>
             <div className={styles.body}>
