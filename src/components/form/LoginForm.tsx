@@ -43,6 +43,7 @@ const LoginForm = () => {
                     email: userData.email,
                 },
                 (status) => {
+                    console.log(status);
                     if (!status) return;
                     dispatch({
                         type: USER_ACTION_TYPE.UPDATE_USER,
